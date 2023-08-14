@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct BoxAttributes {
+struct BoxAttributes: Identifiable {    
+    let id = UUID()
     let name: String
     let description: String
     let creationDate: Date

@@ -22,6 +22,7 @@
 		4F3D3BDD2A8A44A5009253AB /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BDC2A8A44A5009253AB /* ViewExtension.swift */; };
 		4F3D3BDF2A8A44E2009253AB /* UIKit2SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BDE2A8A44E2009253AB /* UIKit2SwiftUI.swift */; };
 		4F3D3BE42A8A5EBB009253AB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BE32A8A5EBB009253AB /* GradientView.swift */; };
+		4F3D3BEA2A8A6C7C009253AB /* AddBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BE92A8A6C7C009253AB /* AddBoxView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		4F3D3BDC2A8A44A5009253AB /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		4F3D3BDE2A8A44E2009253AB /* UIKit2SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKit2SwiftUI.swift; sourceTree = "<group>"; };
 		4F3D3BE32A8A5EBB009253AB /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		4F3D3BE92A8A6C7C009253AB /* AddBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +81,6 @@
 				4F3D3BCA2A8A0A6F009253AB /* Core */,
 				4F3D3BC32A8A099E009253AB /* Modules */,
 				4F3D3BB52A8A098E009253AB /* MoneyBoxApp.swift */,
-				4F3D3BB72A8A098E009253AB /* ContentView.swift */,
 				4F3D3BB92A8A0991009253AB /* Assets.xcassets */,
 				4F3D3BBB2A8A0991009253AB /* Preview Content */,
 			);
@@ -97,6 +98,7 @@
 		4F3D3BC32A8A099E009253AB /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4F3D3BE52A8A6C4E009253AB /* Main */,
 				4F3D3BC42A8A09BC009253AB /* BoxModule */,
 			);
 			path = Modules;
@@ -188,6 +190,39 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		4F3D3BE52A8A6C4E009253AB /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4F3D3BE82A8A6C66009253AB /* Model */,
+				4F3D3BE72A8A6C61009253AB /* ViewModel */,
+				4F3D3BE62A8A6C55009253AB /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4F3D3BE62A8A6C55009253AB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4F3D3BB72A8A098E009253AB /* ContentView.swift */,
+				4F3D3BE92A8A6C7C009253AB /* AddBoxView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4F3D3BE72A8A6C61009253AB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4F3D3BE82A8A6C66009253AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -266,6 +301,7 @@
 				4F3D3BD82A8A37D8009253AB /* BoxAttributes.swift in Sources */,
 				4F3D3BDD2A8A44A5009253AB /* ViewExtension.swift in Sources */,
 				4F3D3BD02A8A0B03009253AB /* Color.swift in Sources */,
+				4F3D3BEA2A8A6C7C009253AB /* AddBoxView.swift in Sources */,
 				4F3D3BB62A8A098E009253AB /* MoneyBoxApp.swift in Sources */,
 				4F3D3BDF2A8A44E2009253AB /* UIKit2SwiftUI.swift in Sources */,
 				4F3D3BE42A8A5EBB009253AB /* GradientView.swift in Sources */,
