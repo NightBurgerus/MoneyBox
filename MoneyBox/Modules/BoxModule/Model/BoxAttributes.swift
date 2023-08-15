@@ -29,7 +29,7 @@ struct BoxAttributes: Identifiable {
 }
 
 
-enum TimeUnit: CaseIterable {
+enum TimeUnit: Int, CaseIterable, Codable {
     case year, month, day, hour, minute, second
     
     func seconds() -> Int {
@@ -55,7 +55,7 @@ enum TimeUnit: CaseIterable {
     }
 }
 
-struct MoneyTransaction {
+struct MoneyTransaction: Codable {
     var name: String
     var value: Double
     var unit: TimeUnit

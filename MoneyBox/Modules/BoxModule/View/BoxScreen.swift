@@ -50,6 +50,7 @@ struct BoxScreen: View {
         let step = incomePerSecond - wastePerSecond
         
         let currentValue = Date().timeIntervalSince(boxAttributes.creationDate) * step + boxAttributes.startCapital
+        
         return CircleAttributes(value: currentValue, finishValue: boxAttributes.finalValue, step: step)
     }
 }
@@ -68,38 +69,39 @@ extension BoxScreen {
     }
     private var descriptionView: some View {
         VStack {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Text("Описание")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.white)
-                    Spacer()
-                }
-                HStack {
-                    Text(boxAttributes.description)
-                        .font(.system(size: 17))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.leading)
-                        .background( GeometryReader { geo in
-                            Color.clear.onAppear {
-                                self.descriptionHeight = geo.size.height
-                                showFullDescription = geo.size.height < 100
-                            }
-                        })
-                    Spacer()
-                }
-            }.frame(height: showFullDescription ? nil : Optional(100))
-            
-            if (descriptionHeight ?? 0) > 100 {
-                Button {
-                    withAnimation {
-                        showFullDescription.toggle()
+            if !boxAttributes.description.isEmpty {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Text("Описание")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.white)
+                        Spacer()
                     }
-                } label: {
-                    Text("\(showFullDescription ? "Скрыть" : "Показать") описание")
+                    HStack {
+                        Text(boxAttributes.description)
+                            .font(.system(size: 17))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.leading)
+                            .background( GeometryReader { geo in
+                                Color.clear.onAppear {
+                                    self.descriptionHeight = geo.size.height
+                                    showFullDescription = geo.size.height < 100
+                                }
+                            })
+                        Spacer()
+                    }
+                }.frame(height: showFullDescription ? nil : Optional(100))
+                
+                if (descriptionHeight ?? 0) > 100 {
+                    Button {
+                        withAnimation {
+                            showFullDescription.toggle()
+                        }
+                    } label: {
+                        Text("\(showFullDescription ? "Скрыть" : "Показать") описание")
+                    }
                 }
             }
-
         }
     }
     

@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var selectedGoalsIndex: Int = 0
     @State private var action: Int? = nil
     @State private var addSheedShowing = false
+    @StateObject private var mainVM = MainViewModel()
     
     var body: some View {
         NavigationView {
@@ -56,6 +57,7 @@ struct ContentView: View {
                 NavigationView {
                     AddBoxView { newGoal in
                         goals.append(newGoal)
+                        mainVM.saveNewBox(newGoal)
                     }
                 }
             })
@@ -92,6 +94,7 @@ struct ContentView: View {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundEffect = nil
         UINavigationBar.appearance().standardAppearance = appearance
+        goals = mainVM.loadItemsFromCoreData()
     }
 }
 
