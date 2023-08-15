@@ -32,6 +32,10 @@ struct AddTransactionScreen: View {
             addButton
         }
         .background(GradientView())
+        .contentShape(Rectangle())
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     }
     
     private func formattedUnits(_ units: TimeUnit) -> String {

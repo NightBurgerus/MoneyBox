@@ -58,21 +58,24 @@ struct CircleProgress: View {
 extension CircleProgress {
     private var circle: some View {
         Circle()
-            .fill(attributes.circleColor)
-            .mask(
+            .trim(from: trimFrom, to: trimTo)
+            .stroke(style: StrokeStyle(lineWidth: 20, lineCap: .round, lineJoin: .miter))
+            .foregroundColor(attributes.circleColor)
+            .rotationEffect(.degrees(-90))
+            .background(
                 Circle()
-                    .trim(from: trimFrom, to: trimTo)
-                    .stroke(style: StrokeStyle(lineWidth: 25, lineCap: .round, lineJoin: .miter))
-                    .rotationEffect(.degrees(-90))
+                    .stroke(style: StrokeStyle(lineWidth: 20, lineCap: .round, lineJoin: .miter))
+                    .foregroundColor(attributes.circleColor.opacity(0.125))
             )
             .onReceive(timer) { _ in
                 if taskFinished {
                     
                     return
                 }
+                
+                currentValue += attributes.step
+                progress = (currentValue * 100).rounded() / attributes.finishValue
                 withAnimation(.linear(duration: animationDuration)) {
-                    currentValue += attributes.step
-                    progress = (currentValue * 100).rounded() / attributes.finishValue
                     trimTo = progress / 100
                 }
             }
@@ -81,13 +84,10 @@ extension CircleProgress {
     
     private var finishedCircle: some View {
         Circle()
-            .fill(attributes.finishColor)
-            .mask(
-                Circle()
-                    .trim(from: trimFinishFrom, to: trimFinishTo)
-                    .stroke(style: StrokeStyle(lineWidth: 25, lineCap: .round, lineJoin: .miter))
-                    .rotationEffect(.degrees(-90))
-            )
+            .trim(from: trimFinishFrom, to: trimFinishTo)
+            .stroke(style: StrokeStyle(lineWidth: 20, lineCap: .round, lineJoin: .miter))
+            .foregroundColor(attributes.finishColor)
+            .rotationEffect(.degrees(-90))
             .onAppear {
                 withAnimation(.easeInOut(duration: animationDuration)) {
                     trimFinishTo = 1.0
@@ -111,10 +111,17 @@ extension CircleProgress {
     
     private var circleText: some View {
         VStack {
+            Text("Уже накоплено")
+                .font(.system(size: 19, weight: .bold))
+                .foregroundColor(.white)
+                .padding(.bottom, 10)
             Text(String(format: "%.2f", currentValue))
+                .font(.system(size: 17))
                 .foregroundColor(.white)
                 .frame(width: Const.bounds.width)
+                .padding(.bottom, 5)
             Text(String(format: "%.2f", progress) + "%")
+                .font(.system(size: 17))
                 .foregroundColor(.white)
                 .frame(width: Const.bounds.width)
         }
@@ -125,3 +132,4 @@ extension CircleProgress {
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
 }
+

@@ -13,6 +13,7 @@ struct AddBoxView: View {
     @State private var name = ""
     @State private var description = ""
     @State private var finalValue = ""
+    @State private var startCapital = ""
     @State private var income: [MoneyTransaction] = []
     @State private var waste: [MoneyTransaction] = []
     
@@ -22,13 +23,11 @@ struct AddBoxView: View {
                 label
                 
                 nameView
-                
                 descriptionView
-                
                 transactionView
                 
-                
                 goalView
+                startCapitalView
                 Spacer()
                 addButton
             }
@@ -155,6 +154,25 @@ extension AddBoxView {
         .frame(height: 30)
     }
     
+    private var startCapitalView: some View {
+        HStack {
+            Text("Начальный \nкапитал ")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(.white)
+            Spacer()
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(.white.opacity(0.125))
+                TextField("", text: $startCapital, onCommit: { endEditing() })
+                    .keyboardType(.decimalPad)
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 10)
+            }.frame(height: 30)
+        }
+        .frame(height: 60)
+    }
+    
     private var addButton: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -171,7 +189,7 @@ extension AddBoxView {
                 dismiss()
                 return
             }
-            let newBox = BoxAttributes(name: name, description: description, creationDate: Date(), income: income, waste: waste, finalValue: goal)
+            let newBox = BoxAttributes(name: name, description: description, creationDate: Date(), income: income, waste: waste, finalValue: goal, startCapital: Double(startCapital.replacingOccurrences(of: ",", with: ".")) ?? 0.0)
             endEditing()
             completion?(newBox)
             dismiss()

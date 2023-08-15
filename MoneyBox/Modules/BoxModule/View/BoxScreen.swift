@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct BoxScreen: View {
-    var boxAttributes: BoxAttributes
-    @State private var showFullDescription = false
+    @Binding var boxAttributes: BoxAttributes
+    @State private var showFullDescription = true
     @State private var circleAttributes: CircleAttributes? = nil
+    @State private var descriptionHeight: CGFloat? = nil
     
     var body: some View {
         VStack {
@@ -26,7 +27,7 @@ struct BoxScreen: View {
                 Spacer()
             }.padding(5)
         }
-        .viewDidLoad {
+        .viewWillAppear {
             DispatchQueue.main.async {
                 self.circleAttributes = getCircleAttributes()
             }
@@ -41,18 +42,14 @@ struct BoxScreen: View {
                     .foregroundColor(.white)
             }
         }
-//        .introspectNavigationController { navigationController in
-//            print(navigationController)
-//            navigationController?.interactivePopGestureRecognizer?.delegate = nil
-//        }
     }
     
     private func getCircleAttributes() -> CircleAttributes {
-        let incomePerSecond = boxAttributes.income.map({ $0.value * Double($0.unit.seconds()) }).reduce(0, +)
-        let wastePerSecond  = boxAttributes.waste.map({ $0.value * Double($0.unit.seconds()) }).reduce(0, +)
+        let incomePerSecond = boxAttributes.income.map({ $0.value / Double($0.unit.seconds()) }).reduce(0, +)
+        let wastePerSecond  = boxAttributes.waste.map({ $0.value / Double($0.unit.seconds()) }).reduce(0, +)
         let step = incomePerSecond - wastePerSecond
         
-        let currentValue = Date().timeIntervalSince(boxAttributes.creationDate) * step
+        let currentValue = Date().timeIntervalSince(boxAttributes.creationDate) * step + boxAttributes.startCapital
         return CircleAttributes(value: currentValue, finishValue: boxAttributes.finalValue, step: step)
     }
 }
@@ -72,25 +69,42 @@ extension BoxScreen {
     private var descriptionView: some View {
         VStack {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Описание")
-                    .foregroundColor(.white)
-                Text(boxAttributes.description)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.leading)
-            }.frame(height: showFullDescription ? nil : Optional(100))
-            Button {
-                withAnimation {
-                    showFullDescription.toggle()
+                HStack {
+                    Text("Описание")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.white)
+                    Spacer()
                 }
-            } label: {
-                Text("\(showFullDescription ? "Скрыть" : "Показать") описание")
+                HStack {
+                    Text(boxAttributes.description)
+                        .font(.system(size: 17))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.leading)
+                        .background( GeometryReader { geo in
+                            Color.clear.onAppear {
+                                self.descriptionHeight = geo.size.height
+                                showFullDescription = geo.size.height < 100
+                            }
+                        })
+                    Spacer()
+                }
+            }.frame(height: showFullDescription ? nil : Optional(100))
+            
+            if (descriptionHeight ?? 0) > 100 {
+                Button {
+                    withAnimation {
+                        showFullDescription.toggle()
+                    }
+                } label: {
+                    Text("\(showFullDescription ? "Скрыть" : "Показать") описание")
+                }
             }
 
         }
     }
     
     private var incomeLink: some View {
-        NavigationLink(destination: EmptyView()) {
+        NavigationLink(destination: IncomeWasteScreen(income: $boxAttributes.income, waste: $boxAttributes.waste)) {
             HStack {
                 Text("Доходы")
                     .foregroundColor(.white)
@@ -103,7 +117,7 @@ extension BoxScreen {
     }
     
     private var wasteLink: some View {
-        NavigationLink(destination: EmptyView()) {
+        NavigationLink(destination: IncomeWasteScreen(income: $boxAttributes.income, waste: $boxAttributes.waste)) {
             HStack {
                 Text("Расходы")
                     .foregroundColor(.white)

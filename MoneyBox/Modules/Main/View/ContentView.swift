@@ -17,7 +17,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 if goals.count > 0 {
-                    NavigationLink(destination: BoxScreen(boxAttributes: goals[selectedGoalsIndex]), tag: 1, selection: $action) {}
+                    NavigationLink(destination: BoxScreen(boxAttributes: $goals[selectedGoalsIndex]), tag: 1, selection: $action) {}
                 }
                 if goals.count > 0 {
                     ScrollView {

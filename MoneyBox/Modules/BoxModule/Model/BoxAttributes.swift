@@ -12,9 +12,20 @@ struct BoxAttributes: Identifiable {
     let name: String
     let description: String
     let creationDate: Date
-    let income: [MoneyTransaction]
-    let waste: [MoneyTransaction]
+    var income: [MoneyTransaction]
+    var waste: [MoneyTransaction]
     let finalValue: Double
+    let startCapital: Double
+    
+    init(name: String, description: String, creationDate: Date, income: [MoneyTransaction], waste: [MoneyTransaction], finalValue: Double, startCapital: Double = 0.0) {
+        self.name = name
+        self.description = description
+        self.creationDate = creationDate
+        self.income = income
+        self.waste = waste
+        self.finalValue = finalValue
+        self.startCapital = startCapital
+    }
 }
 
 
