@@ -32,6 +32,7 @@
 		4F3D3C942A8BBF1E009253AB /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3C932A8BBF1E009253AB /* MainViewModel.swift */; };
 		4F3D3C962A8BFA98009253AB /* BoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3C952A8BFA98009253AB /* BoxViewModel.swift */; };
 		4F3D3C982A8BFBDE009253AB /* BoxAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3C972A8BFBDE009253AB /* BoxAdapter.swift */; };
+		4F3D3C9D2A8C0B4B009253AB /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F3D3C9C2A8C0B4B009253AB /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,8 @@
 		4F3D3C932A8BBF1E009253AB /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4F3D3C952A8BFA98009253AB /* BoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewModel.swift; sourceTree = "<group>"; };
 		4F3D3C972A8BFBDE009253AB /* BoxAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAdapter.swift; sourceTree = "<group>"; };
+		4F3D3C992A8C07E2009253AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4F3D3C9C2A8C0B4B009253AB /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,7 @@
 		4F3D3BB42A8A098E009253AB /* MoneyBox */ = {
 			isa = PBXGroup;
 			children = (
+				4F3D3C992A8C07E2009253AB /* Info.plist */,
 				4F3D3BE02A8A5E9E009253AB /* Shared */,
 				4F3D3BCE2A8A0AF8009253AB /* Extensions */,
 				4F3D3BCB2A8A0A7B009253AB /* Resources */,
@@ -101,6 +105,7 @@
 				4F3D3BB52A8A098E009253AB /* MoneyBoxApp.swift */,
 				4F3D3BB92A8A0991009253AB /* Assets.xcassets */,
 				4F3D3BBB2A8A0991009253AB /* Preview Content */,
+				4F3D3C9C2A8C0B4B009253AB /* Launch Screen.storyboard */,
 			);
 			path = MoneyBox;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F3D3C9D2A8C0B4B009253AB /* Launch Screen.storyboard in Resources */,
 				4F3D3BBD2A8A0991009253AB /* Preview Assets.xcassets in Resources */,
 				4F3D3BBA2A8A0991009253AB /* Assets.xcassets in Resources */,
 			);
@@ -508,15 +514,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyBox/Preview Content\"";
 				DEVELOPMENT_TEAM = ZR7Z862SYX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MoneyBox/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -537,15 +545,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyBox/Preview Content\"";
 				DEVELOPMENT_TEAM = ZR7Z862SYX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MoneyBox/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (

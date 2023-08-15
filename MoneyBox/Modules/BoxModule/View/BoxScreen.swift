@@ -33,7 +33,6 @@ struct BoxScreen: View {
         .viewWillAppear {
             DispatchQueue.main.async {
                 onChangeTransactionCount = { income, waste in
-                    print("Хаю хай с вами Ивангай")
                     boxAttributes.income = income
                     boxAttributes.waste = waste
                     print("updated: ", boxVM.update(object: boxAttributes))
