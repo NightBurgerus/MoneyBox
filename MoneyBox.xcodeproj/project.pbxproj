@@ -30,6 +30,8 @@
 		4F3D3C912A8BBF06009253AB /* Box+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3C8F2A8BBF06009253AB /* Box+CoreDataClass.swift */; };
 		4F3D3C922A8BBF06009253AB /* Box+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3C902A8BBF06009253AB /* Box+CoreDataProperties.swift */; };
 		4F3D3C942A8BBF1E009253AB /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3C932A8BBF1E009253AB /* MainViewModel.swift */; };
+		4F3D3C962A8BFA98009253AB /* BoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3C952A8BFA98009253AB /* BoxViewModel.swift */; };
+		4F3D3C982A8BFBDE009253AB /* BoxAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3C972A8BFBDE009253AB /* BoxAdapter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		4F3D3C8F2A8BBF06009253AB /* Box+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Box+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		4F3D3C902A8BBF06009253AB /* Box+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Box+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		4F3D3C932A8BBF1E009253AB /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		4F3D3C952A8BFA98009253AB /* BoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewModel.swift; sourceTree = "<group>"; };
+		4F3D3C972A8BFBDE009253AB /* BoxAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAdapter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 		4F3D3BC62A8A09D2009253AB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4F3D3C952A8BFA98009253AB /* BoxViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 			children = (
 				4F3D3BD52A8A160F009253AB /* CircleAttributes.swift */,
 				4F3D3BD72A8A37D8009253AB /* BoxAttributes.swift */,
+				4F3D3C972A8BFBDE009253AB /* BoxAdapter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -370,7 +376,9 @@
 				4F3D3BD02A8A0B03009253AB /* Color.swift in Sources */,
 				4F3D3C942A8BBF1E009253AB /* MainViewModel.swift in Sources */,
 				4F3D3BEA2A8A6C7C009253AB /* AddBoxView.swift in Sources */,
+				4F3D3C962A8BFA98009253AB /* BoxViewModel.swift in Sources */,
 				4F3D3BB62A8A098E009253AB /* MoneyBoxApp.swift in Sources */,
+				4F3D3C982A8BFBDE009253AB /* BoxAdapter.swift in Sources */,
 				4F3D3BDF2A8A44E2009253AB /* UIKit2SwiftUI.swift in Sources */,
 				4F3D3BE42A8A5EBB009253AB /* GradientView.swift in Sources */,
 				4F3D3BD42A8A0D62009253AB /* CircleView.swift in Sources */,

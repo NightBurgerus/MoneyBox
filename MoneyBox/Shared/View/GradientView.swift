@@ -9,6 +9,9 @@ import SwiftUI
 
 struct GradientView: View {
     var body: some View {
-        LinearGradient(colors: [AppColors.appBackground, AppColors.darkBlue], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1)).edgesIgnoringSafeArea(.all)
+        ZStack {
+            Color.black
+            LinearGradient(colors: [AppColors.appBackground, AppColors.darkBlue], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))
+        }.edgesIgnoringSafeArea(.all)
     }
 }

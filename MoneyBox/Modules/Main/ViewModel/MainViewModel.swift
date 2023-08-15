@@ -26,7 +26,7 @@ class MainViewModel: ObservableObject {
             let result = try context.fetch(request)
             var attributes = [BoxAttributes]()
             for r in result {
-                attributes.append(self.box2BoxAttribute(r))
+                attributes.append(BoxAdapter.convertToAttributes(box: r))
             }
             return attributes
         } catch {
@@ -35,23 +35,37 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    private func box2BoxAttribute(_ box: Box) -> BoxAttributes {
-        let decoder = JSONDecoder()
-        let income = (try? decoder.decode([MoneyTransaction].self, from: box.income ?? Data())) ?? []
-        let waste = (try? decoder.decode([MoneyTransaction].self, from: box.waste ?? Data())) ?? []
-        
-        return BoxAttributes(name: box.name ?? "",
-                             description: box.descript ?? "",
-                             creationDate: box.creationDate ?? Date(),
-                             income: income,
-                             waste: waste,
-                             finalValue: box.finalValue)
+    func update(object: BoxAttributes) -> Bool {
+        let context = persistentContainer.viewContext
+        let request = NSFetchRequest<Box>(entityName: "Box")
+        do {
+            var results = try context.fetch(request)
+            var controlCount = 0
+            for i in 0..<results.count {
+                if results[i].id == object.id {
+                    BoxAdapter.copy(box: object, in: &results[i])
+                    break
+                }
+                controlCount += 1
+            }
+            if controlCount == results.count {
+                print("not found")
+                return false
+            }
+            
+            try context.save()
+            return true
+        } catch {
+            print("some error while update value in BoxViewModel: ", error)
+            return false
+        }
     }
     
     func saveNewBox(_ box: BoxAttributes) {
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Box", in: context)!
         let newBox = Box(entity: entity, insertInto: context)
+        newBox.id = box.id
         newBox.name = box.name
         newBox.descript = box.description
         newBox.creationDate = box.creationDate
@@ -70,5 +84,40 @@ class MainViewModel: ObservableObject {
         } catch {
             print("error while saving context in MainViewModel: ", error)
         }
+    }
+    
+    func delete(object: BoxAttributes) -> Bool {
+        let context = persistentContainer.viewContext
+        let request = NSFetchRequest<Box>(entityName: "Box")
+        if let results = try? context.fetch(request) {
+            var controllCount = 0
+            for item in results {
+                if self.compare(box: item, boxAttr: object) {
+                    context.delete(item)
+                    break
+                }
+                controllCount += 1
+            }
+            if controllCount == results.count {
+                print("not found")
+                return false
+            }
+        } else {
+            print("no results")
+            return false
+        }
+        
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            print("error while deleting object in MainViewModel: ", error)
+            return false
+        }
+    }
+    
+    func compare(box: Box, boxAttr: BoxAttributes) -> Bool {
+        return box.id == boxAttr.id
     }
 }

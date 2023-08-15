@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct BoxScreen: View {
-    @Binding var boxAttributes: BoxAttributes
+    @State var boxAttributes: BoxAttributes
     @State private var showFullDescription = true
     @State private var circleAttributes: CircleAttributes? = nil
     @State private var descriptionHeight: CGFloat? = nil
+    @State private var boxVM = BoxViewModel()
+    @State private var onChangeTransactionCount: (([MoneyTransaction], [MoneyTransaction]) -> Void)?
     
     var body: some View {
         VStack {
@@ -25,10 +27,17 @@ struct BoxScreen: View {
                     CircleProgress(attributes: attr)
                 }
                 Spacer()
-            }.padding(5)
+            }
+            .padding(10)
         }
         .viewWillAppear {
             DispatchQueue.main.async {
+                onChangeTransactionCount = { income, waste in
+                    print("Хаю хай с вами Ивангай")
+                    boxAttributes.income = income
+                    boxAttributes.waste = waste
+                    print("updated: ", boxVM.update(object: boxAttributes))
+                }
                 self.circleAttributes = getCircleAttributes()
             }
         }
@@ -106,7 +115,7 @@ extension BoxScreen {
     }
     
     private var incomeLink: some View {
-        NavigationLink(destination: IncomeWasteScreen(income: $boxAttributes.income, waste: $boxAttributes.waste)) {
+        NavigationLink(destination: IncomeWasteScreen(income: boxAttributes.income, waste: boxAttributes.waste, onChange: onChangeTransactionCount)) {
             HStack {
                 Text("Доходы")
                     .foregroundColor(.white)
@@ -119,7 +128,7 @@ extension BoxScreen {
     }
     
     private var wasteLink: some View {
-        NavigationLink(destination: IncomeWasteScreen(income: $boxAttributes.income, waste: $boxAttributes.waste)) {
+        NavigationLink(destination: IncomeWasteScreen(income: boxAttributes.income, waste: boxAttributes.waste, onChange: onChangeTransactionCount)) {
             HStack {
                 Text("Расходы")
                     .foregroundColor(.white)

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct IncomeWasteScreen: View {
-    @Binding var income: [MoneyTransaction]
-    @Binding var waste: [MoneyTransaction]
+    @State var income: [MoneyTransaction]
+    @State var waste: [MoneyTransaction]
+    let onChange: (([MoneyTransaction], [MoneyTransaction]) -> Void)?
     @State private var addButtonType: TransactionTypes = .income
     @State private var addTransactionSheetShowing = false
     
@@ -27,6 +28,7 @@ struct IncomeWasteScreen: View {
                     .onDelete { indexes in
                         guard let index = indexes.randomElement() else { return }
                         income.remove(at: index)
+                        onChange?(income, waste)
                     }
                     
                     addButton(type: .income)
@@ -42,6 +44,7 @@ struct IncomeWasteScreen: View {
                     .onDelete { indexes in
                         guard let index = indexes.randomElement() else { return }
                         waste.remove(at: index)
+                        onChange?(income, waste)
                     }
                     
                     addButton(type: .waste)
@@ -50,14 +53,11 @@ struct IncomeWasteScreen: View {
             .sheet(isPresented: $addTransactionSheetShowing) {
                 AddTransactionScreen(typePicker: addButtonType) { newTransaction in
                     if newTransaction.type == .income {
-                        income.append(MoneyTransaction(name: newTransaction.name,
-                                                       value: newTransaction.value,
-                                                       unit: newTransaction.unit))
+                        income.append(MoneyTransaction(name: newTransaction.name,value: newTransaction.value, unit: newTransaction.unit))
                     } else {
-                        waste.append(MoneyTransaction(name: newTransaction.name,
-                                                      value: newTransaction.value,
-                                                      unit: newTransaction.unit))
+                        waste.append(MoneyTransaction(name: newTransaction.name,value: newTransaction.value, unit: newTransaction.unit))
                     }
+                    onChange?(income, waste)
                 }
             }
         }
@@ -70,6 +70,7 @@ struct IncomeWasteScreen: View {
         switch transaction.unit {
         case .year: result += "/год"
         case .month: result += "/месяц"
+        case .week: result += "/неделя"
         case .day: result += "/день"
         case .hour: result += "/час"
         case .minute: result += "/минута"

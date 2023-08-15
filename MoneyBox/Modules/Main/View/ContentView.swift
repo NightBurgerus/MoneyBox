@@ -18,29 +18,33 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 if goals.count > 0 {
-                    NavigationLink(destination: BoxScreen(boxAttributes: $goals[selectedGoalsIndex]), tag: 1, selection: $action) {}
+                    NavigationLink(destination: BoxScreen(boxAttributes: goals[selectedGoalsIndex]), tag: 1, selection: $action) {}
                 }
                 if goals.count > 0 {
-                    ScrollView {
-                        ForEach(0..<goals.count, id: \.self) { i in
-                            HStack {
-                                Text(goals[i].name)
-                                    .foregroundColor(.white)
-                                Spacer()
+                    List {
+                        Section {
+                            ForEach(0..<goals.count, id: \.self) { i in
+                                HStack {
+                                    Text(goals[i].name)
+                                        .foregroundColor(.white)
+                                    Spacer()
+                                }
+                                .frame(height: 50)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    selectedGoalsIndex = i
+                                    action = 1
+                                }
+                                
                             }
-                            .listRowBackground(Color.clear)
-                            .frame(height: 50)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                selectedGoalsIndex = i
-                                action = 1
+                            .onDelete { _set in
+                                guard let index = _set.randomElement() else { return }
+                                if mainVM.delete(object: goals[index]) {
+                                    goals.remove(at: index)
+                                }
                             }
-                            
                         }
-                        .onDelete { _set in
-                            guard let index = _set.randomElement() else { return }
-                            goals.remove(at: index)
-                        }
+                        .listRowBackground(Color.clear)
                     }
                     .padding(.vertical, 50)
                 } else {

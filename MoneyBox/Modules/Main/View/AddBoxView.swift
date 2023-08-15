@@ -16,6 +16,7 @@ struct AddBoxView: View {
     @State private var startCapital = ""
     @State private var income: [MoneyTransaction] = []
     @State private var waste: [MoneyTransaction] = []
+    @State private var onChangeTransactionCount: (([MoneyTransaction], [MoneyTransaction]) -> Void)?
     
     var body: some View {
         VStack {
@@ -39,6 +40,12 @@ struct AddBoxView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .background(GradientView())
+        .onAppear {
+            onChangeTransactionCount = { income, waste in
+                self.income = income
+                self.waste = waste
+            }
+        }
     }
     
     private func endEditing() {
@@ -101,7 +108,7 @@ extension AddBoxView {
     private var transactionView: some View {
         Group {
             NavigationLink {
-                IncomeWasteScreen(income: $income, waste: $waste)
+                IncomeWasteScreen(income: income, waste: waste, onChange: onChangeTransactionCount)
             } label: {
                 HStack {
                     Text("Доходы")
@@ -117,7 +124,7 @@ extension AddBoxView {
             }
             
             NavigationLink {
-                IncomeWasteScreen(income: $income, waste: $waste)
+                IncomeWasteScreen(income: income, waste: waste, onChange: onChangeTransactionCount)
             } label: {
                 HStack {
                     Text("Расходы")
@@ -183,13 +190,12 @@ extension AddBoxView {
         .frame(width: 150, height: 75)
         .contentShape(Rectangle())
         .onTapGesture {
-            guard let goal = Double(finalValue.replacingOccurrences(of: ",", with: ".")), !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-                    !description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            guard let goal = Double(finalValue.replacingOccurrences(of: ",", with: ".")), !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                 endEditing()
                 dismiss()
                 return
             }
-            let newBox = BoxAttributes(name: name, description: description, creationDate: Date(), income: income, waste: waste, finalValue: goal, startCapital: Double(startCapital.replacingOccurrences(of: ",", with: ".")) ?? 0.0)
+            let newBox = BoxAttributes(id: UUID(), name: name, description: description, creationDate: Date(), income: income, waste: waste, finalValue: goal, startCapital: Double(startCapital.replacingOccurrences(of: ",", with: ".")) ?? 0.0)
             endEditing()
             completion?(newBox)
             dismiss()

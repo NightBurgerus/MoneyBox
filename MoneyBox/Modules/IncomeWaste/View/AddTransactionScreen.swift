@@ -44,6 +44,8 @@ struct AddTransactionScreen: View {
             return "Год"
         case .month:
             return "Месяц"
+        case .week:
+            return "Неделя"
         case .day:
             return "День"
         case .hour:
