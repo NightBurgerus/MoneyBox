@@ -8,38 +8,173 @@
 import SwiftUI
 
 struct AddBoxView: View {
-    let completion: ((BoxAttributes?) -> ())? = nil
+    let completion: ((BoxAttributes) -> ())?
+    @Environment(\.dismiss) private var dismiss
     @State private var name = ""
     @State private var description = ""
     @State private var finalValue = ""
+    @State private var income: [MoneyTransaction] = []
+    @State private var waste: [MoneyTransaction] = []
     
     var body: some View {
         VStack {
-            Text("Добавление новой цели")
-            
-            HStack {
-                Text("Название")
+            Group {
+                label
+                
+                nameView
+                
+                descriptionView
+                
+                transactionView
+                
+                
+                goalView
                 Spacer()
+                addButton
             }
-            
-            TextField("Название", text: $name)
-            
-            TextEditor(text: $description)
-                .border(Color.gray)
-                .frame(height: 100)
-            
-            TextField("Конечная цель", text: $finalValue)
-                .keyboardType(.numberPad)
-            Spacer()
+            .padding(.horizontal, 10)
         }
-        .onDisappear {
-            print("on disappear")
+        .contentShape(Rectangle())
+        .onTapGesture {
+            endEditing()
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .background(GradientView())
+    }
+    
+    private func endEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
-struct AddBoxView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddBoxView()
+extension AddBoxView {
+    private var label: some View {
+        Text("Добавление новой цели")
+            .font(.system(size: 27, weight: .heavy))
+            .foregroundColor(.white)
+    }
+    
+    private var nameView: some View {
+        HStack {
+            Text("Название")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(.white)
+            Spacer()
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(.white.opacity(0.125))
+                TextField("Название", text: $name, onCommit: { endEditing() })
+                    .font(.system(size: 18))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 10)
+            }
+        }
+        .frame(height: 30)
+        .padding(.bottom, 20)
+    }
+    
+    private var descriptionView: some View {
+        VStack {
+            HStack {
+                Text("Описание")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(.white.opacity(0.125))
+                TextEditor(text: $description)
+                    .onSubmit {
+                        endEditing()
+                    }
+                    .foregroundColor(.white)
+                    .padding(5)
+            }
+            .frame(height: 100)
+            .onAppear {
+                UITextView.appearance().backgroundColor = .clear
+            }
+        }
+        .padding(.bottom, 20)
+    }
+    
+    private var transactionView: some View {
+        Group {
+            NavigationLink {
+                IncomeWasteScreen(income: $income, waste: $waste)
+            } label: {
+                HStack {
+                    Text("Доходы")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.white)
+                    Spacer()
+                    Text("\(income.count)")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.white.opacity(0.75))
+                }
+                .frame(height: 30)
+                .padding(.bottom, 10)
+            }
+            
+            NavigationLink {
+                IncomeWasteScreen(income: $income, waste: $waste)
+            } label: {
+                HStack {
+                    Text("Расходы")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.white)
+                    Spacer()
+                    Text("\(waste.count)")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.white.opacity(0.75))
+                }
+                .frame(height: 30)
+                .padding(.bottom, 20)
+            }
+        }
+        
+    }
+    
+    private var goalView: some View {
+        HStack {
+            Text("Конечная цель: ")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(.white)
+            Spacer()
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(.white.opacity(0.125))
+                TextField("", text: $finalValue, onCommit: { endEditing() })
+                    .keyboardType(.decimalPad)
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 10)
+            }
+        }
+        .frame(height: 30)
+    }
+    
+    private var addButton: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.red)
+            Text("Добавить")
+                .foregroundColor(.white)
+        }
+        .frame(width: 150, height: 75)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard let goal = Double(finalValue.replacingOccurrences(of: ",", with: ".")), !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+                    !description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                endEditing()
+                dismiss()
+                return
+            }
+            let newBox = BoxAttributes(name: name, description: description, creationDate: Date(), income: income, waste: waste, finalValue: goal)
+            endEditing()
+            completion?(newBox)
+            dismiss()
+        }
     }
 }

@@ -23,6 +23,9 @@
 		4F3D3BDF2A8A44E2009253AB /* UIKit2SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BDE2A8A44E2009253AB /* UIKit2SwiftUI.swift */; };
 		4F3D3BE42A8A5EBB009253AB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BE32A8A5EBB009253AB /* GradientView.swift */; };
 		4F3D3BEA2A8A6C7C009253AB /* AddBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BE92A8A6C7C009253AB /* AddBoxView.swift */; };
+		4F3D3BF02A8A812B009253AB /* IncomeWasteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BEF2A8A812B009253AB /* IncomeWasteScreen.swift */; };
+		4F3D3BF22A8A84D8009253AB /* AddTransactionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BF12A8A84D8009253AB /* AddTransactionScreen.swift */; };
+		4F3D3BF42A8A9468009253AB /* AddTransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3D3BF32A8A9468009253AB /* AddTransactionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		4F3D3BDE2A8A44E2009253AB /* UIKit2SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKit2SwiftUI.swift; sourceTree = "<group>"; };
 		4F3D3BE32A8A5EBB009253AB /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4F3D3BE92A8A6C7C009253AB /* AddBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxView.swift; sourceTree = "<group>"; };
+		4F3D3BEF2A8A812B009253AB /* IncomeWasteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeWasteScreen.swift; sourceTree = "<group>"; };
+		4F3D3BF12A8A84D8009253AB /* AddTransactionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionScreen.swift; sourceTree = "<group>"; };
+		4F3D3BF32A8A9468009253AB /* AddTransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,7 @@
 		4F3D3BC32A8A099E009253AB /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4F3D3BEB2A8A80FD009253AB /* IncomeWaste */,
 				4F3D3BE52A8A6C4E009253AB /* Main */,
 				4F3D3BC42A8A09BC009253AB /* BoxModule */,
 			);
@@ -223,6 +230,40 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4F3D3BEB2A8A80FD009253AB /* IncomeWaste */ = {
+			isa = PBXGroup;
+			children = (
+				4F3D3BEE2A8A811A009253AB /* Model */,
+				4F3D3BED2A8A8114009253AB /* ViewModel */,
+				4F3D3BEC2A8A810F009253AB /* View */,
+			);
+			path = IncomeWaste;
+			sourceTree = "<group>";
+		};
+		4F3D3BEC2A8A810F009253AB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4F3D3BEF2A8A812B009253AB /* IncomeWasteScreen.swift */,
+				4F3D3BF12A8A84D8009253AB /* AddTransactionScreen.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4F3D3BED2A8A8114009253AB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4F3D3BEE2A8A811A009253AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F3D3BF32A8A9468009253AB /* AddTransactionModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -297,8 +338,11 @@
 				4F3D3BDB2A8A4327009253AB /* Introspection.swift in Sources */,
 				4F3D3BCD2A8A0A87009253AB /* AppColors.swift in Sources */,
 				4F3D3BD62A8A160F009253AB /* CircleAttributes.swift in Sources */,
+				4F3D3BF22A8A84D8009253AB /* AddTransactionScreen.swift in Sources */,
 				4F3D3BC92A8A0A1A009253AB /* BoxScreen.swift in Sources */,
+				4F3D3BF42A8A9468009253AB /* AddTransactionModel.swift in Sources */,
 				4F3D3BD82A8A37D8009253AB /* BoxAttributes.swift in Sources */,
+				4F3D3BF02A8A812B009253AB /* IncomeWasteScreen.swift in Sources */,
 				4F3D3BDD2A8A44A5009253AB /* ViewExtension.swift in Sources */,
 				4F3D3BD02A8A0B03009253AB /* Color.swift in Sources */,
 				4F3D3BEA2A8A6C7C009253AB /* AddBoxView.swift in Sources */,

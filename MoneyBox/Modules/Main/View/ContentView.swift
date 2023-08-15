@@ -19,31 +19,45 @@ struct ContentView: View {
                 if goals.count > 0 {
                     NavigationLink(destination: BoxScreen(boxAttributes: goals[selectedGoalsIndex]), tag: 1, selection: $action) {}
                 }
-                ScrollView {
-                    ForEach(0..<goals.count, id: \.self) { i in
-                        HStack {
-                            Text(goals[i].name)
-                                .foregroundColor(.white)
-                            Spacer()
+                if goals.count > 0 {
+                    ScrollView {
+                        ForEach(0..<goals.count, id: \.self) { i in
+                            HStack {
+                                Text(goals[i].name)
+                                    .foregroundColor(.white)
+                                Spacer()
+                            }
+                            .listRowBackground(Color.clear)
+                            .frame(height: 50)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                selectedGoalsIndex = i
+                                action = 1
+                            }
+                            
                         }
-                        .listRowBackground(Color.clear)
-                        .frame(height: 50)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            selectedGoalsIndex = i
-                            action = 1
+                        .onDelete { _set in
+                            guard let index = _set.randomElement() else { return }
+                            goals.remove(at: index)
                         }
-
                     }
-                    .onDelete { _set in
-                        guard let index = _set.randomElement() else { return }
-                        goals.remove(at: index)
-                    }
+                    .padding(.vertical, 50)
+                } else {
+                    Spacer()
+                    Text("Нет целей")
+                        .font(.system(size: 27, weight: .bold))
+                        .foregroundColor(.white)
+                    Spacer()
                 }
-                .padding(.top, 50)
+                
             }
             .sheet(isPresented: $addSheedShowing, content: {
-                AddBoxView()
+                
+                NavigationView {
+                    AddBoxView { newGoal in
+                        goals.append(newGoal)
+                    }
+                }
             })
             .frame(width: Const.bounds.width, height: Const.bounds.height)
             .navigationBarTitleDisplayMode(.inline)
@@ -78,10 +92,6 @@ struct ContentView: View {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundEffect = nil
         UINavigationBar.appearance().standardAppearance = appearance
-        
-        for i in 0...5 {
-            goals.append(BoxAttributes(name: "Test\(i + 1)", description: "Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. Какое-то длинное-длинное описание тестового экрана задач. ", creationDate: Date(), income: [MoneyTransaction(name: "Что-то", value: 10, unit: .minute)], waste: [], finalValue: 20000))
-        }
     }
 }
 

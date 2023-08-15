@@ -18,7 +18,7 @@ struct BoxAttributes: Identifiable {
 }
 
 
-enum TimeUnit {
+enum TimeUnit: CaseIterable {
     case year, month, day, hour, minute, second
     
     func seconds() -> Int {
@@ -29,6 +29,17 @@ enum TimeUnit {
         case .hour: return 60 * 60
         case .minute: return 60
         case .second: return 1
+        }
+    }
+    
+    static func value(from string: String) -> Self {
+        switch string.lowercased() {
+        case "год": return .year
+        case "месяц": return .month
+        case "день": return .day
+        case "час": return .hour
+        case "минута": return .minute
+        default: return .second
         }
     }
 }

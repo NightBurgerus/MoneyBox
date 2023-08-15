@@ -10,5 +10,5 @@ import SwiftUI
 struct AppColors {
     static let appBackground = Color(red: 8, green: 17, blue: 45, opacity: 1)
     static let darkBlue  = Color(red: 7, green: 8, blue: 15, opacity: 1)
-    static let lightBlue = Color(red: 0x11, green: 0x11, blue: 0x9c, opacity: 1.0)
+    static let lightBlue = Color(red: 0x88, green: 0x88, blue: 0xff, opacity: 1.0)
 }
